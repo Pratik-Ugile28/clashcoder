@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: clashcoder
-    runtime: node
-    buildCommand: npm install
-    startCommand: npm start
-    envVars:
-      - key: CLASH_API_TOKEN
-        sync: false
