@@ -4,6 +4,7 @@ const express = require("express");
 const axios = require("axios");      // for API calls
 
 const app = express();
+const COC_API_BASE_URL = process.env.CLASH_API_BASE_URL || "https://proxy.royaleapi.dev/v1";
 
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -15,16 +16,17 @@ app.get("/clan-members", async (req, res) => {
     return res.status(400).json({ message: "clanTag is required" });
   }
 
-const encodedClanTag = `%23${clanTag}`;
+  const encodedClanTag = `%23${clanTag.replace(/^#/, "")}`;
 
   try {
     const response = await axios.get(
-      `https://api.clashofclans.com/v1/clans/${encodedClanTag}/members`,
+      `${COC_API_BASE_URL}/clans/${encodedClanTag}/members`,
       {
         headers: {
           Authorization: `Bearer ${process.env.CLASH_API_TOKEN}`,
           Accept: "application/json",
         },
+        timeout: 8000,
       }
     );
 
@@ -53,7 +55,7 @@ app.get("/clan-war-members", async (req, res) => {
     return res.status(400).json({ message: "clanTag is required" });
   }
 
-  const encodedClanTag = `%23${clanTag}`;
+  const encodedClanTag = `%23${clanTag.replace(/^#/, "")}`;
   const headers = {
     Authorization: `Bearer ${process.env.CLASH_API_TOKEN}`,
     Accept: "application/json",
@@ -61,25 +63,37 @@ app.get("/clan-war-members", async (req, res) => {
 
   try {
     const [clanResponse, membersResponse] = await Promise.all([
-      axios.get(`https://api.clashofclans.com/v1/clans/${encodedClanTag}`, { headers }),
-      axios.get(`https://api.clashofclans.com/v1/clans/${encodedClanTag}/members`, { headers }),
+      axios.get(`${COC_API_BASE_URL}/clans/${encodedClanTag}`, { headers, timeout: 8000 }),
+      axios.get(`${COC_API_BASE_URL}/clans/${encodedClanTag}/members`, { headers, timeout: 8000 }),
     ]);
 
     const members = await Promise.all(membersResponse.data.items.map(async (member) => {
       const encodedPlayerTag = `%23${member.tag.replace(/^#/, "")}`;
-      const profileResponse = await axios.get(
-        `https://api.clashofclans.com/v1/players/${encodedPlayerTag}`,
-        { headers }
-      );
+      try {
+        const profileResponse = await axios.get(
+          `${COC_API_BASE_URL}/players/${encodedPlayerTag}`,
+          { headers, timeout: 8000 }
+        );
 
-      return {
-      tag: member.tag,
-      name: member.name,
-      role: member.role,
-      townHallLevel: member.townHallLevel,
-      trophies: member.trophies,
-      warStars: profileResponse.data.warStars || 0,
-      };
+        return {
+          tag: member.tag,
+          name: member.name,
+          role: member.role,
+          townHallLevel: member.townHallLevel,
+          trophies: member.trophies,
+          warStars: profileResponse.data.warStars || 0,
+        };
+      } catch (err) {
+        // If an individual player profile fails or times out, don't crash the whole clan response
+        return {
+          tag: member.tag,
+          name: member.name,
+          role: member.role,
+          townHallLevel: member.townHallLevel,
+          trophies: member.trophies,
+          warStars: 0,
+        };
+      }
     }));
 
     res.json({
