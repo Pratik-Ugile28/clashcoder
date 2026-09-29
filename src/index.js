@@ -4,7 +4,7 @@ const express = require("express");
 const axios = require("axios");      // for API calls
 
 const app = express();
-const COC_API_BASE_URL = process.env.CLASH_API_BASE_URL || "https://proxy.royaleapi.dev/v1";
+const COC_API_BASE_URL = process.env.CLASH_API_BASE_URL || "https://cocproxy.royaleapi.dev/v1";
 
 app.use(express.static(path.join(__dirname, "../public")));
 
