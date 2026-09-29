@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ClashCoder | Clan Members</title>
-  <link rel="icon" type="image/png" href="https://api-assets.clashofclans.com/badges/70/iTrBFo3gpJRT2UELbo4fZkJELaKw4e0iXq8f3bT5VHI.png">
+  <link rel="icon" type="image/png"
+    href="https://api-assets.clashofclans.com/badges/70/iTrBFo3gpJRT2UELbo4fZkJELaKw4e0iXq8f3bT5VHI.png">
   <style>
     :root {
       color-scheme: light;
@@ -19,7 +21,9 @@
       --shadow: 0 18px 50px rgba(24, 33, 47, 0.1);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -29,7 +33,11 @@
       font-family: Georgia, "Times New Roman", serif;
     }
 
-    main { width: min(960px, calc(100% - 32px)); margin: 0 auto; padding: 64px 0; }
+    main {
+      width: min(960px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 64px 0;
+    }
 
     .eyebrow {
       margin: 0 0 12px;
@@ -39,18 +47,45 @@
       text-transform: uppercase;
     }
 
-    h1 { margin: 0; font-size: clamp(2.5rem, 7vw, 5rem); line-height: 0.95; max-width: 650px; }
-    .intro { max-width: 540px; margin: 22px 0 34px; color: var(--muted); font: 1.05rem/1.6 Arial, sans-serif; }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      line-height: 0.95;
+      max-width: 650px;
+    }
 
-    .search-panel, .results-panel {
+    .intro {
+      max-width: 540px;
+      margin: 22px 0 34px;
+      color: var(--muted);
+      font: 1.05rem/1.6 Arial, sans-serif;
+    }
+
+    .search-panel,
+    .results-panel {
       background: var(--panel);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
     }
 
-    .search-panel { padding: 24px; border-radius: 8px 8px 0 0; }
-    form { display: flex; gap: 12px; }
-    label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+    .search-panel {
+      padding: 24px;
+      border-radius: 8px 8px 0 0;
+    }
+
+    form {
+      display: flex;
+      gap: 12px;
+    }
+
+    label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
     input {
       flex: 1;
       min-width: 0;
@@ -60,7 +95,12 @@
       color: var(--ink);
       font: 1rem Arial, sans-serif;
     }
-    input:focus { outline: 3px solid #ffd6c8; border-color: var(--accent); }
+
+    input:focus {
+      outline: 3px solid #ffd6c8;
+      border-color: var(--accent);
+    }
+
     button {
       padding: 14px 22px;
       border: 0;
@@ -70,28 +110,138 @@
       cursor: pointer;
       font: 700 0.95rem Arial, sans-serif;
     }
-    button:hover { background: var(--accent-dark); }
-    button:disabled { cursor: wait; opacity: 0.65; }
 
-    .status { min-height: 24px; margin: 18px 0 0; color: var(--muted); font: 0.9rem Arial, sans-serif; }
-    .status.error { color: #b42318; }
-    .results-panel { display: none; overflow: hidden; border-top: 0; border-radius: 0 0 8px 8px; }
-    .results-panel.visible { display: block; }
-    .results-heading { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; padding: 22px 24px; border-bottom: 1px solid var(--line); }
-    h2 { margin: 0; font-size: 1.45rem; }
-    .count { color: var(--muted); font: 0.85rem Arial, sans-serif; }
-    .sort-controls { display: flex; align-items: center; gap: 10px; padding: 16px 24px; border-bottom: 1px solid var(--line); font: 0.85rem Arial, sans-serif; }
-    .sort-controls label { position: static; width: auto; height: auto; overflow: visible; clip: auto; color: var(--muted); }
-    select { padding: 8px 28px 8px 10px; border: 1px solid #ccd4df; border-radius: 4px; color: var(--ink); background: #fff; font: inherit; }
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; min-width: 560px; font: 0.95rem Arial, sans-serif; }
-    th, td { padding: 16px 24px; text-align: left; border-bottom: 1px solid var(--line); }
-    th { color: var(--muted); background: #fafbfd; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
-    tr:last-child td { border-bottom: 0; }
-    .member-name { font-weight: 700; }
-    .tag { color: var(--muted); font-size: 0.8rem; }
-    .role { display: inline-block; padding: 5px 8px; border-radius: 3px; color: var(--accent-dark); background: var(--soft-accent); font-size: 0.78rem; text-transform: capitalize; }
-    .stars { color: var(--accent-dark); font-weight: 700; }
+    button:hover {
+      background: var(--accent-dark);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    .status {
+      min-height: 24px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font: 0.9rem Arial, sans-serif;
+    }
+
+    .status.error {
+      color: #b42318;
+    }
+
+    .results-panel {
+      display: none;
+      overflow: hidden;
+      border-top: 0;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .results-panel.visible {
+      display: block;
+    }
+
+    .results-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
+
+    .count {
+      color: var(--muted);
+      font: 0.85rem Arial, sans-serif;
+    }
+
+    .sort-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--line);
+      font: 0.85rem Arial, sans-serif;
+    }
+
+    .sort-controls label {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip: auto;
+      color: var(--muted);
+    }
+
+    select {
+      padding: 8px 28px 8px 10px;
+      border: 1px solid #ccd4df;
+      border-radius: 4px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+      font: 0.95rem Arial, sans-serif;
+    }
+
+    th,
+    td {
+      padding: 16px 24px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--muted);
+      background: #fafbfd;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .member-name {
+      font-weight: 700;
+    }
+
+    .tag {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .role {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 3px;
+      color: var(--accent-dark);
+      background: var(--soft-accent);
+      font-size: 0.78rem;
+      text-transform: capitalize;
+    }
+
+    .stars {
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
     footer {
       margin-top: 48px;
       text-align: center;
@@ -100,20 +250,40 @@
     }
 
     @media (max-width: 600px) {
-      main { padding: 36px 0; }
-      form { flex-direction: column; }
-      button { width: 100%; }
-      .search-panel { padding: 18px; }
-      .results-heading { padding: 18px; }
-      th, td { padding: 14px 18px; }
+      main {
+        padding: 36px 0;
+      }
+
+      form {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .search-panel {
+        padding: 18px;
+      }
+
+      .results-heading {
+        padding: 18px;
+      }
+
+      th,
+      td {
+        padding: 14px 18px;
+      }
     }
   </style>
 </head>
+
 <body>
   <main>
     <p class="eyebrow">ClashCoder</p>
     <h1>See who is building your clan.</h1>
-    <p class="intro">Enter a Clash of Clans clan tag to view its current members, roles, Town Hall levels, and trophies.</p>
+    <p class="intro">Enter a Clash of Clans clan tag to view its current members, roles, Town Hall levels, and trophies.
+    </p>
 
     <section class="search-panel">
       <form id="clan-form">
@@ -144,7 +314,13 @@
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Member</th><th>Role</th><th>Town Hall</th><th>Trophies</th><th>Total war stars</th></tr>
+            <tr>
+              <th>Member</th>
+              <th>Role</th>
+              <th>Town Hall</th>
+              <th>Trophies</th>
+              <th>Total war stars</th>
+            </tr>
           </thead>
           <tbody id="member-list"></tbody>
         </table>
@@ -221,4 +397,5 @@
     });
   </script>
 </body>
+
 </html>
